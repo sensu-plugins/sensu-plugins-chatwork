@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.description            = 'This plugin provides native Chatwork
                               instrumentation for monitoring and metrics
                               collection, including: handler for sending
-                              notifications and more.''
+                              notifications and more.'
   s.email                  = '<sensu-users@googlegroups.com>'
   s.executables            = Dir.glob('bin/**/*.rb').map { |file| File.basename(file) }
   s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
