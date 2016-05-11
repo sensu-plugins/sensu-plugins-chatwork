@@ -58,7 +58,7 @@ class ChatWkNotif < Sensu::Handler
   end
 
   def access_header
-    { 'X-ChatWorkToken' => "#{api_token}" }
+    { 'X-ChatWorkToken' => api_token.to_s }
   end
 
   def action_to_string
@@ -71,13 +71,13 @@ class ChatWkNotif < Sensu::Handler
 
   def sensu_message
     "\s\s\s***#{action_to_string}***\s\s\s" + "\r\n" \
-    'Time: ' + "#{Time.at(@event['check']['issued'])}" + "\r\n" \
+    'Time: ' + Time.at(@event['check']['issued']).to_s + "\r\n" \
     'Client: ' + @event['client']['name'] + "\r\n" \
     'Address: ' + @event['client']['address'] + "\r\n" \
     'Subscriptions: ' + @event['client']['subscriptions'].join(', ') + "\r\n" \
     'Check: ' + @event['check']['name'] + "\r\n" \
     'Output: ' + "#{sensu_output}" \
-    "\s\s\s***by Sensu***\s\s\s"
+    '   ***by Sensu***   '
   end
 
   def event_name
@@ -88,7 +88,7 @@ class ChatWkNotif < Sensu::Handler
     http = Net::HTTP.new(access_uri.host, access_uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    body = 'body=' + URI.encode("#{sensu_message}")
+    body = 'body=' + URI.encode(sensu_message.to_s)
     begin
       timeout(10) do
         res = http.post(access_uri, body, access_header)
