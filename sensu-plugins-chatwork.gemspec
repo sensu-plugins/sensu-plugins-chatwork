@@ -3,11 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'date'
 
-if RUBY_VERSION < '2.0.0'
-  require 'sensu-plugins-chatwork'
-else
-  require_relative 'lib/sensu-plugins-chatwork'
-end
+require_relative 'lib/sensu-plugins-chatwork'
 
 Gem::Specification.new do |s|
   s.authors                = ['Sensu-Plugins and contributors']
